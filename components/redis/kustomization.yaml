@@ -1,0 +1,8 @@
+resources:
+  - service.yaml
+  - deployment.yaml
+
+secretGenerator:
+  - name: redis-config
+    files:
+      - redis.conf
