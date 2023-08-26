@@ -12,3 +12,4 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   hostPath:
     path: /mnt/data
+    # path: /run/desktop/mnt/host/c/dev/k8s-data

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres-depl
+  name: postgres
   namespace: postgres
 spec:
   selector:
