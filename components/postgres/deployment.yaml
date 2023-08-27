@@ -15,16 +15,29 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: postgres
-        imagePullPolicy: "IfNotPresent"
+        image: postgres:14
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          readOnlyRootFilesystem: true
         envFrom:
         - configMapRef:
             name: postgres-config
         ports:
-        - containerPort: 5432
+        - name: postgres
+          containerPort: 5432
         volumeMounts:
         - name: postgres-data
           mountPath: /var/lib/postgresql/data
+        resources:
+          requests:
+            cpu: 200m
+            memory: 500Mi
+        livenessProbe:
+          exec:
+            command: ["pg_isready", "-U", "postgres", "-h", "localhost"]
+        readinessProbe:
+          exec:
+            command: ["pg_isready", "-U", "postgres", "-h", "localhost"]
       volumes:
       - name: postgres-data
         persistentVolumeClaim:
