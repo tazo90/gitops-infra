@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: selfsigned-cert
+  # namespace: cert-manager-test
+spec:
+  secretName: selfsigned-cert-tls
+  issuerRef:
+    name: letsencrypt-cluster-issuer
+    kind: ClusterIssuer
+  commonName: ticketing.dev
+  dnsNames:
+  - ticketing.dev

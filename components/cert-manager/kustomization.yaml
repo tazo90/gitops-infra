@@ -4,4 +4,6 @@ namespace: cert-manager
 
 resources:
 - https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
-- certificate-issuer.yaml
+# - namespace.yaml
+- issuer.yaml
+- certificate.yaml

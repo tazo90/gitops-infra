@@ -1,0 +1,11 @@
+k apply -f 01-hello-app.yaml
+k apply -f 02-hello-ingress.yaml
+
+k create ns cert-manager
+
+k apply --validate=false -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
+
+k get all -n cert-manager 
+k get certificates -n cert-manager
+
+k apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
