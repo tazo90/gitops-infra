@@ -3,12 +3,12 @@ kind: Kustomization
 namespace: redis
 
 resources:
-- namespace.yaml
+  - namespace.yaml
 
 helmCharts:
-- name: redis
-  version: 18.0.1
-  repo: https://charts.bitnami.com/bitnami
-  releaseName: redis
-  namespace: redis
-  valuesFile: redis-values.yaml
+  - name: redis
+    version: 18.0.1
+    repo: https://charts.bitnami.com/bitnami
+    releaseName: redis
+    namespace: redis
+    valuesFile: redis-values.yaml
