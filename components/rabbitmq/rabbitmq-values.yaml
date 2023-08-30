@@ -1,0 +1,5 @@
+auth:
+  username: user
+  password: test123
+persistance:
+  enabled: false
