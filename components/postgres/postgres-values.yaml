@@ -1,0 +1,8 @@
+image:
+  tag: 15.4
+
+auth:
+  user: dbuser
+  password: dbpass
+  database: testdb
+
