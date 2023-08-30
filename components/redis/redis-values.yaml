@@ -1,0 +1,8 @@
+image:
+  tag: 7.2.0
+
+architecture: standalone
+
+auth:
+  enabled: true
+  password: test123
