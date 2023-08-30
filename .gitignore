@@ -1,2 +1,3 @@
 components/redis/charts/
 components/rabbitmq/charts/
+components/postgres/charts/

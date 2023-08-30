@@ -1,3 +1,5 @@
+kubectl kustomize --enable-helm components/rabbitmq | kubectl apply --filename -
+
 # How to install helm chart via kustomize
 
 https://www.youtube.com/watch?v=2GXC8WtpySc
