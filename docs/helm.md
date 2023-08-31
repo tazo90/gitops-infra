@@ -12,3 +12,6 @@ helm show values bitnami/rabbitmq
 helm install -f values.yaml test-rabbitmq bitnami/rabbitmq --namespace rabbit
 
 helm create chart-name
+
+cd /c/dev/gitops/gitops-demo/components/directus/charts/directus
+helm install -f values.yaml directus .

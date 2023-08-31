@@ -1,17 +1,32 @@
+service:
+  port: 8055
+
 extraEnvVars:
-  KEY: '255d861b-5ea1-5996-9aa3-922530ec40b1'
-  SECRET: '6116487b-cda1-52c2-b5b5-c8022c45e263'
-
-  DB_CLIENT: 'pg'
-  DB_HOST: 'database'
-  DB_PORT: '5432'
-  DB_DATABASE: 'directus'
-  DB_USER: 'directus'
-  DB_PASSWORD: 'directus'
-
-  CACHE_ENABLED: 'true'
-  CACHE_STORE: 'redis'
-  REDIS: 'redis://cache:6379'
-
-  ADMIN_EMAIL: 'admin@example.com'
-  ADMIN_PASSWORD: 'd1r3ctu5'
+  - name: KEY
+    value: "255d861b-5ea1-5996-9aa3-922530ec40b1"
+  - name: SECRET
+    value: "6116487b-cda1-52c2-b5b5-c8022c45e263"
+  - name: TELEMETRY
+    value: "false"
+  - name: DB_CLIENT
+    value: "pg"
+  - name: DB_HOST
+    value: "postgres-postgresql.postgres.svc"
+  - name: DB_PORT
+    value: "5432"
+  - name: DB_DATABASE
+    value: "testdb"
+  - name: DB_USER
+    value: "dbuser"
+  - name: DB_PASSWORD
+    value: "dbpass"
+  - name: CACHE_ENABLED
+    value: "true"
+  - name: CACHE_STORE
+    value: "redis"
+  - name: REDIS
+    value: "redis://:test123@redis-master.redis.svc:6379"
+  - name: ADMIN_EMAIL
+    value: "admin@example.com"
+  - name: ADMIN_PASSWORD
+    value: "directus"

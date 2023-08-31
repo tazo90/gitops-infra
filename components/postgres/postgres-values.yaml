@@ -2,7 +2,7 @@ image:
   tag: 15.4.0
 
 auth:
-  user: dbuser
+  username: dbuser
   password: dbpass
   database: testdb
 
