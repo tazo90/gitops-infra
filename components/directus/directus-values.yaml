@@ -1,32 +1,28 @@
+app: 
+  key: 255d861b-5ea1-5996-9aa3-922530ec40b1
+  secret: 6116487b-cda1-52c2-b5b5-c8022c45e263
+  telemetry: false
+
+admin:
+  email: admin@example.com
+  password: directus
+
+db:
+  client: pg
+  host: postgres-postgresql.postgres.svc
+  port: 5432
+  dbname: testdb
+  user: dbuser
+  password: dbpass
+
+cache:
+  enabled: true
+  store: redis
+  uri: redis://:test123@redis-master.redis.svc:6379
+
 service:
   port: 8055
 
-extraEnvVars:
-  - name: KEY
-    value: "255d861b-5ea1-5996-9aa3-922530ec40b1"
-  - name: SECRET
-    value: "6116487b-cda1-52c2-b5b5-c8022c45e263"
-  - name: TELEMETRY
-    value: "false"
-  - name: DB_CLIENT
-    value: "pg"
-  - name: DB_HOST
-    value: "postgres-postgresql.postgres.svc"
-  - name: DB_PORT
-    value: "5432"
-  - name: DB_DATABASE
-    value: "testdb"
-  - name: DB_USER
-    value: "dbuser"
-  - name: DB_PASSWORD
-    value: "dbpass"
-  - name: CACHE_ENABLED
-    value: "true"
-  - name: CACHE_STORE
-    value: "redis"
-  - name: REDIS
-    value: "redis://:test123@redis-master.redis.svc:6379"
-  - name: ADMIN_EMAIL
-    value: "admin@example.com"
-  - name: ADMIN_PASSWORD
-    value: "directus"
+env:
+  - name: LOG_LEVEL
+    value: "info"

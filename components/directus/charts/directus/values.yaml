@@ -79,22 +79,10 @@ extraEnvVars: {}
 #  - name: STORAGE_LOCATIONS
 #    value: "s3"
 
-# app:
-#   key:
-#   secret:
-#   telemetry:
+app: {}
 
-# admin:
-#   email:
-#   password:
+admin: {}
 
-# database:
-#   host:
-#   port:
-#   username:
-#   password:
-
-# cache:
-#   enabled: true
-#   store: redis
-  # uri: 
+database: {}
+  
+cache: {}

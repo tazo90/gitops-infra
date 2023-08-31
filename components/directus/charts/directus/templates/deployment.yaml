@@ -34,8 +34,36 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            {{- if .Values.extraEnvVars }}
-            {{- toYaml .Values.extraEnvVars | nindent 12 }}
+            - name: KEY
+              value: {{ .Values.app.key }}
+            - name: SECRET
+              value: {{ .Values.app.secret }}
+            - name: TELEMETRY
+              value: {{ .Values.app.telemetry | quote }}
+            - name: ADMIN_EMAIL
+              value: {{ .Values.admin.email }}
+            - name: ADMIN_PASSWORD
+              value: {{ .Values.admin.password }}
+            - name: DB_CLIENT
+              value: {{ .Values.db.client }}
+            - name: DB_HOST
+              value: {{ .Values.db.host }}
+            - name: DB_PORT
+              value: {{ .Values.db.port | quote }}
+            - name: DB_DATABASE
+              value: {{ .Values.db.dbname }}
+            - name: DB_USER
+              value: {{ .Values.db.user }}
+            - name: DB_PASSWORD
+              value: {{ .Values.db.password }}
+            - name: CACHE_ENABLED
+              value: {{ .Values.cache.enabled | quote }}
+            - name: CACHE_STORE
+              value: {{ .Values.cache.store }}
+            - name: REDIS
+              value: {{ .Values.cache.uri }}
+            {{- if .Values.env }}
+            {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
           ports:
             - name: http
