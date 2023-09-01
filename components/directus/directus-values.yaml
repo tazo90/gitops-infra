@@ -4,6 +4,9 @@ image:
   repository: directus/directus
   tag: "10.6.1"
 
+service:
+  port: 8055
+
 app: 
   key: 255d861b-5ea1-5996-9aa3-922530ec40b1
   secret: 6116487b-cda1-52c2-b5b5-c8022c45e263
@@ -25,9 +28,6 @@ cache:
   enabled: true
   store: redis
   uri: redis://:test123@redis-master.redis.svc:6379
-
-service:
-  port: 8055
 
 env:
   - name: LOG_LEVEL
