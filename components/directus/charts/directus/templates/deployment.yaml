@@ -62,6 +62,8 @@ spec:
               value: {{ .Values.cache.store }}
             - name: REDIS
               value: {{ .Values.cache.uri }}
+            - name: PORT
+              value: {{ .Values.service.port }}
             {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
