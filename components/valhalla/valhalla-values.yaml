@@ -1,0 +1,19 @@
+image:
+  repository: ghcr.io/gis-ops/docker-valhalla/valhalla
+  tag: latest
+
+service:
+  port: 8002
+
+valhalla:
+  tile_urls: dolnoslaskie-latest.osm.pbf
+  server_threads: 1             # determines how many threads will be used to run the valhalla server
+  serve_tiles: true             # If True, starts the service. If false, stops after building the graph.
+  use_tiles_ignore_pbf: true    # load existing valhalla_tiles.tar directly
+  tileset_name: valhalla_tiles  # name of the resulting graph on disk
+  build_elevation: false        # build elevation with "True" or "Force": will download only the elevation for areas covered by the graph tiles
+  build_admins: false           # build admins db with "True" or "Force"
+  build_time_zones: false       # build timezone db with "True" or "Force"
+  build_transit: false          # build transit, needs existing GTFS directories mapped to /gtfs_feeds
+  build_tar: true               # build an indexed tar file from the tile_dir for faster graph loading times
+  force_rebuild: false          # forces a rebuild of the routing tiles with "True"

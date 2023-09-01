@@ -1,0 +1,15 @@
+kind: Kustomization
+namespace: valhalla
+
+resources:
+  - namespace.yaml
+
+helmGlobals:
+  chartHome: ./charts
+
+helmCharts:
+  - name: valhalla
+    version: 0.1.0
+    releaseName: valhalla
+    namespace: valhalla
+    valuesFile: valhalla-values.yaml
