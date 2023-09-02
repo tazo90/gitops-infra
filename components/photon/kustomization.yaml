@@ -1,0 +1,15 @@
+kind: Kustomization
+namespace: photon
+
+resources:
+  - namespace.yaml
+
+helmGlobals:
+  chartHome: ./charts
+
+helmCharts:
+  - name: photon
+    version: 0.1.0
+    releaseName: photon
+    namespace: photon
+    valuesFile: photon-values.yaml
