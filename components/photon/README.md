@@ -14,19 +14,20 @@ k exec -it photon-6878bbb64-csbgv -n photon bash
 wget --user-agent="$USER_AGENT" -O - https://download1.graphhopper.com/public/extracts/by-country-code/ee/photon-db-ee-latest.tar.bz2 | bzip2 -cd | tar x
 kubectl delete pod photon-6878bbb64-csbgv 
 
-## 2.1 How to download new country definition (e.g. Estonia)
+## 2.1 How to download new country definition (e.g. Albania)
 - No results
-curl http://localhost:2322/api\?q\=tallin 
+curl http://localhost:2322/api\?q\=tirana 
 
 - Download Estonia definition
 k get pods -n photon
 k exec -it photon-6878bbb64-csbgv -n photon bash
+wget --user-agent="$USER_AGENT" -O - https://download1.graphhopper.com/public/extracts/by-country-code/ee/photon-db-ee-latest.tar.bz2 | bzip2 -cd | tar x
 
 - Restart photon 
 kubectl delete pod photon-6878bbb64-csbgv 
 
 - You should see results now
-curl http://localhost:2322/api\?q\=tallin 
+curl http://localhost:2322/api\?q\=tirana 
 
 
 # 3. Description

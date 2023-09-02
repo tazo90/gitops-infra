@@ -1,4 +1,5 @@
 {
   "[yaml]": { "editor.formatOnSave": false },
+  "[md]": { "editor.formatOnSave": false },
   "workbench.editor.showTabs": false
 }
