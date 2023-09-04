@@ -1,8 +1,28 @@
 image:
+  debug: true
   tag: 15.4.0
 
 auth:
   username: dbuser
   password: dbpass
   database: testdb
+  postgresPassword: secure@Pass
 
+primary:
+  persistence:
+    enabled: true
+    size: 2Gi
+  initdb:
+    user: "postgres"
+    password: secure@Pass
+    scripts:
+      01_init_databases.sql: |
+        CREATE USER app_user;
+        CREATE DATABASE app_dev WITH OWNER app_user;
+        GRANT ALL PRIVILEGES ON DATABASE app_dev TO app_user;
+      02_init_extensions.sql: |
+        CREATE EXTENSION IF NOT EXISTS postgis;
+        CREATE EXTENSION IF NOT EXISTS hstore;  
+      03_debug.sh: |
+        #!/bin/sh
+        echo "Database sucesfull initialized.";

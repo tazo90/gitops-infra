@@ -15,3 +15,7 @@ helm create chart-name
 
 cd /c/dev/gitops/gitops-demo/components/directus/charts/directus
 helm install -f values.yaml directus .
+
+
+helm install postgresql3 bitnami/postgresql -f values.yaml
+kubectl logs -f postgresql3-0
