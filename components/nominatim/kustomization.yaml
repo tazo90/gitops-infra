@@ -1,0 +1,16 @@
+kind: Kustomization
+namespace: nominatim
+
+resources:
+  - namespace.yaml
+
+helmGlobals:
+  chartHome: ./charts
+
+helmCharts:
+  - name: nominatim
+    version: 3.9.1
+    repo: https://robjuz.github.io/helm-charts/
+    releaseName: nominatim
+    namespace: nominatim
+    valuesFile: nominatim-values.yaml

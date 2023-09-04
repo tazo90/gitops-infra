@@ -6,15 +6,15 @@ auth:
   username: dbuser
   password: dbpass
   database: testdb
-  postgresPassword: secure@Pass
+  postgresPassword: secure@pass
 
 primary:
   persistence:
     enabled: true
     size: 2Gi
   initdb:
-    user: "postgres"
-    password: secure@Pass
+    user: postgres
+    password: secure@pass
     scripts:
       01_init_databases.sql: |
         CREATE USER app_user;
