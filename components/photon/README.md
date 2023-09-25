@@ -1,3 +1,27 @@
+# Build photon elasticsearch indexes using nominatim
+
+https://chringel.dev/2022/07/creating-a-google-maps-clone-part-2-geocoding-or-wheres-that-place/
+
+jump to photon pod and run following code
+
+java -jar photon.jar \
+  -nominatim-import \
+  -host localhost \
+  -port 5433 \
+  -database nominatim \
+  -user nominatim \
+  -password superSecretPassword \
+  -languages en
+
+java -jar photon.jar \
+  -nominatim-import \
+  -host postgres.svc \
+  -port 5432 \
+  -database nominatim \
+  -user postgres \
+  -password secure@pass \
+  -languages en
+
 # 1. Commands
 
 kubectl kustomize --enable-helm components/photon | kubectl apply --filename -
