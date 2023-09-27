@@ -5,34 +5,23 @@ metadata:
   labels:
     {{- include "photon.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "photon.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
         {{- include "photon.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ include "photon.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}                    
+          command:
+            - "/bin/bash"
+            - "-c"
+            - {{- toYaml .Values.photon.entrypoint | nindent 12 }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -40,21 +29,7 @@ spec:
           volumeMounts:
             - name: photon-data
               mountPath: {{ .Values.photon.data_dir | quote }}
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
       volumes:
       - name: photon-data
         persistentVolumeClaim:
           claimName: "{{ .Values.storage.persistentClaimName | default (include "photon.fullname" .) }}"
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}

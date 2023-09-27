@@ -13,6 +13,7 @@ java -jar photon.jar \
   -password superSecretPassword \
   -languages en
 
+# External postgres
 java -jar photon.jar \
   -nominatim-import \
   -host postgres.svc \
@@ -21,6 +22,9 @@ java -jar photon.jar \
   -user postgres \
   -password secure@pass \
   -languages en
+
+# External elasticsearch and postgres 
+java -jar photon.jar -cluster photon -transport-addresses elasticsearch.elasticsearch.svc:9200 -nominatim-import -host postgres.svc -port 5432 -database nominatim -user postgres -password secure@pass -languages en
 
 # 1. Commands
 
@@ -52,6 +56,10 @@ kubectl delete pod photon-6878bbb64-csbgv
 
 - You should see results now
 curl http://localhost:2322/api\?q\=tirana 
+
+## Troubleshots
+
+If pod has pending status, then remove pvc and pv (cannot bound)
 
 
 # 3. Description
