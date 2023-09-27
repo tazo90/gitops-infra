@@ -1,4 +1,5 @@
 components/redis/charts/
 components/rabbitmq/charts/
 components/postgres/charts/
-components/nominatim/charts
+components/nominatim/charts/
+components/elasticsearch/charts/
