@@ -1,5 +1,10 @@
+image:
+  repository: mediagis/nominatim
+  tag: "4.2"
+
 nominatimInitialize:
-  enabled: false
+  # @Important: first set up should have enabled initialize
+  enabled: true
   pbfUrl: https://download.geofabrik.de/europe/poland/opolskie-latest.osm.pbf
 
 postgresql:
@@ -21,8 +26,8 @@ postgresql:
 externalDatabase:
   host: postgres-postgresql.postgres.svc
   port: 5432
-  user: postgres
-  password: secure@pass
+  user: nominatim
+  password: nominatim
 
 nominatimUi:
   enabled: true
