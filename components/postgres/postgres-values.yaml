@@ -16,13 +16,15 @@ primary:
     user: postgres
     password: secure@pass
     scripts:
-      01_init_databases.sql: |
-        CREATE USER app_user;
-        CREATE DATABASE app_dev WITH OWNER app_user;
-        GRANT ALL PRIVILEGES ON DATABASE app_dev TO app_user;
-      02_init_extensions.sql: |
+      01_init_nominatim.sql: |
+        CREATE USER nominatim WITH ENCRYPTED PASSWORD 'nominatim' CREATEDB CREATEROLE LOGIN SUPERUSER;
+      02_init_pgosm.sql: |
+        CREATE USER pgosm WITH ENCRYPTED PASSWORD 'pgosm' CREATEDB CREATEROLE LOGIN;
+        CREATE DATABASE pgosm WITH OWNER pgosm;
+        GRANT ALL PRIVILEGES ON DATABASE pgosm TO pgosm;
+      03_init_extensions.sql: |
         CREATE EXTENSION IF NOT EXISTS postgis;
         CREATE EXTENSION IF NOT EXISTS hstore;  
-      03_debug.sh: |
+      04_debug.sh: |
         #!/bin/sh
         echo "Database sucesfull initialized.";
