@@ -1,0 +1,11 @@
+resources:
+  # Databases
+  - ../../../components/postgres
+  - ../../../components/redis
+  # Services
+  - ../../../components/nominatim
+  - ../../../components/photon  
+
+commonLabels:
+  app: gis-api
+
