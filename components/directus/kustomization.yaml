@@ -1,8 +1,4 @@
 kind: Kustomization
-namespace: directus
-
-resources:
-  - namespace.yaml
 
 helmGlobals:
   chartHome: ./charts
@@ -11,5 +7,4 @@ helmCharts:
   - name: directus
     version: 10.6.1
     releaseName: directus
-    namespace: directus
     valuesFile: directus-values.yaml

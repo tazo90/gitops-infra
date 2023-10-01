@@ -1,14 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: rabbitmq
-
-resources:
-- namespace.yaml
 
 helmCharts:
-- name: rabbitmq
-  version: 11.1.4
-  repo: https://charts.bitnami.com/bitnami
-  releaseName: rabbitmq
-  namespace: rabbitmq
-  valuesFile: rabbitmq-values.yaml
+  - name: rabbitmq
+    version: 11.1.4
+    repo: https://charts.bitnami.com/bitnami
+    releaseName: rabbitmq
+    valuesFile: rabbitmq-values.yaml
