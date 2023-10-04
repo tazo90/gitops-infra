@@ -2,8 +2,8 @@
 
 ## view yaml manifest first
 
-kubectl kustomize --enable-helm overlays/dev
+kubectl kustomize --enable-helm overlays/stage
 
 ## apply to kubernetes cluster
 
-kubectl kustomize --enable-helm overlays/dev | kubectl apply -f -
+kubectl kustomize --enable-helm overlays/stage | kubectl apply -f -
