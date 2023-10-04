@@ -3,9 +3,9 @@ image:
   tag: 15.4.0
 
 auth:
-  username: dbuser
-  password: dbpass
-  database: testdb
+  # username: dbuser
+  # password: dbpass
+  # database: testdb
   postgresPassword: secure@pass
 
 primary:
