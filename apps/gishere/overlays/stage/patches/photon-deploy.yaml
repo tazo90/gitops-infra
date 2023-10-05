@@ -1,9 +1,6 @@
 - op: replace
-  path: /spec/template/spec/containers/0/volumeMounts/0/name
-  value: photon-data-stage
-- op: replace
-  path: /spec/template/spec/volumes/0/name
-  value: photon-data-stage
+  path: /spec/template/spec/containers/0/volumeMounts/0/mountPath
+  value: /photon/photon_data_stage
 - op: replace
   path: /spec/template/spec/volumes/0/persistentVolumeClaim/claimName
   value: photon-pvc-stage
