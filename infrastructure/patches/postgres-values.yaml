@@ -5,7 +5,6 @@ metadata:
 data:
   01_init_nominatim.sql: |
     CREATE USER nominatim WITH ENCRYPTED PASSWORD 'nominatim' CREATEDB CREATEROLE LOGIN SUPERUSER;
-    CREATE DATABASE nominatim WITH OWNER nominatim;
   02_init_pgosm.sql: |
     CREATE USER pgosm WITH ENCRYPTED PASSWORD 'pgosm' CREATEDB CREATEROLE LOGIN SUPERUSER;
     CREATE DATABASE pgosm WITH OWNER pgosm;
