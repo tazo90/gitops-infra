@@ -16,15 +16,18 @@ primary:
     user: postgres
     password: secure@pass
     scripts:
-      01_init_nominatim.sql: |
-        CREATE USER nominatim WITH ENCRYPTED PASSWORD 'nominatim' CREATEDB CREATEROLE LOGIN SUPERUSER;
-      02_init_pgosm.sql: |
-        CREATE USER pgosm WITH ENCRYPTED PASSWORD 'pgosm' CREATEDB CREATEROLE LOGIN;
-        CREATE DATABASE pgosm WITH OWNER pgosm;
-        GRANT ALL PRIVILEGES ON DATABASE pgosm TO pgosm;
-      03_init_extensions.sql: |
-        CREATE EXTENSION IF NOT EXISTS postgis;
-        CREATE EXTENSION IF NOT EXISTS hstore;  
-      04_debug.sh: |
+      00_init.sh: |
         #!/bin/sh
-        echo "Database sucesfull initialized.";
+        echo "Applying database scripts..."
+    #   01_init_nominatim.sql: |
+    #     CREATE USER nominatim WITH ENCRYPTED PASSWORD 'nominatim' CREATEDB CREATEROLE LOGIN SUPERUSER;
+    #   02_init_pgosm.sql: |
+    #     CREATE USER pgosm WITH ENCRYPTED PASSWORD 'pgosm' CREATEDB CREATEROLE LOGIN;
+    #     CREATE DATABASE pgosm WITH OWNER pgosm;
+    #     GRANT ALL PRIVILEGES ON DATABASE pgosm TO pgosm;
+    #   03_init_extensions.sql: |
+    #     CREATE EXTENSION IF NOT EXISTS postgis;
+    #     CREATE EXTENSION IF NOT EXISTS hstore;  
+    #   04_debug.sh: |
+    #     #!/bin/sh
+    #     echo "Database sucesfull initialized.";
