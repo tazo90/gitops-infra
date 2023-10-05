@@ -1,0 +1,6 @@
+- op: replace
+  path: /metadata/name
+  value: photon-pv-stage
+- op: replace
+  path: /spec/capacity/storage
+  value: 2Gi

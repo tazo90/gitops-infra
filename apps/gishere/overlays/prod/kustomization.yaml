@@ -9,3 +9,17 @@ resources:
   - 01-namespace.yaml
 
 # namePrefix: stage-
+
+patches:
+  - path: patches/photon-pv.yaml
+    target:
+      name: photon-pv
+      kind: PersistentVolume
+  - path: patches/photon-pvc.yaml
+    target:
+      name: photon-pvc
+      kind: PersistentVolumeClaim
+  - path: patches/photon-deploy.yaml
+    target:
+      name: photon
+      kind: Deployment
