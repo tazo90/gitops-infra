@@ -9,13 +9,13 @@ data:
     CREATE USER pgosm WITH ENCRYPTED PASSWORD 'pgosm' CREATEDB CREATEROLE LOGIN SUPERUSER;
     CREATE DATABASE pgosm WITH OWNER pgosm;
   03_init_gishere.sql: |
-    CREATE USER gishere WITH ENCRYPTED PASSWORD 'gishere' CREATEDB CREATEROLE LOGIN;
+    CREATE USER gishere WITH ENCRYPTED PASSWORD 'gishere' CREATEDB CREATEROLE LOGIN SUPERUSER;
     CREATE DATABASE gishere_db_stage WITH OWNER gishere;
     CREATE DATABASE gishere_db_prod WITH OWNER gishere;
     GRANT ALL PRIVILEGES ON DATABASE gishere_db_stage TO gishere;  
     GRANT ALL PRIVILEGES ON DATABASE gishere_db_prod TO gishere;
   04_init_storegraph.sql: |
-    CREATE USER storegraph WITH ENCRYPTED PASSWORD 'storegraph' CREATEDB CREATEROLE LOGIN;
+    CREATE USER storegraph WITH ENCRYPTED PASSWORD 'storegraph' CREATEDB CREATEROLE LOGIN SUPERUSER;
     CREATE DATABASE storegraph_db_stage WITH OWNER storegraph;
     CREATE DATABASE storegraph_db_prod WITH OWNER storegraph;
     GRANT ALL PRIVILEGES ON DATABASE storegraph_db_stage TO storegraph;  
