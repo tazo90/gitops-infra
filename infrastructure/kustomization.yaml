@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   # ../components/nginx-ingress
+  # ../componebts/sentry  
   - ../components/argocd
   - ../components/postgres
   - ../components/redis

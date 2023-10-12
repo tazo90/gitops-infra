@@ -4,7 +4,8 @@ metadata:
   name: postgres-svc
   namespace: postgres
 spec:
-  type: ClusterIP
+  # type: ClusterIP
+  type: NodePort
   ports:
   - port: 5432
     targetPort: 5432
