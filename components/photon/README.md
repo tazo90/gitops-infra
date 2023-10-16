@@ -4,7 +4,7 @@ kubectl kustomize --enable-helm components/photon | kubectl apply --filename -
 
 kubectl port-forward svc/photon -n photon 2322:2322
 
-curl http://localhost:2322/api?q=riga
+curl http://localhost:2322/api?q=opole
 
 ## 2. Download new countries
 https://download1.graphhopper.com/public/extracts/by-country-code/
