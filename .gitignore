@@ -3,3 +3,4 @@ components/rabbitmq/charts/
 components/postgres/charts/
 components/nominatim/charts/
 components/elasticsearch/charts/
+components/mongodb/charts/

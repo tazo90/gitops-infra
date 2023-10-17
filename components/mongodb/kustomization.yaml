@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: mongodb
+
+resources:
+  - namespace.yaml
+
+helmCharts:
+  - name: mongodb
+    version: 14.0.10
+    repo: https://charts.bitnami.com/bitnami
+    releaseName: mongodb
+    namespace: mongodb
+    valuesFile: mongodb-values.yaml
