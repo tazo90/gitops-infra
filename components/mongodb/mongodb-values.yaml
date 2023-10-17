@@ -1,3 +1,6 @@
 auth:
   rootUser: admin
   rootPassword: pass
+
+service:
+  type: NodePort
