@@ -35,27 +35,27 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: TILE_URLS
-            value: {{ .Values.valhalla.tile_urls }}
+              value: {{ quote .Values.valhalla.tile_urls }}
             - name: SERVER_THREADS
-              value: {{ .Values.valhalla.server_threads }}
+              value: {{ quote .Values.valhalla.server_threads }}
             - name: SERVE_TILES
-              value: {{ .Values.valhalla.serve_tiles }}
+              value: {{ quote .Values.valhalla.serve_tiles }}
             - name: USE_TILES_IGNORE_PFB
-              value: {{ .Values.valhalla.use_tiles_ignore_pbf }}
+              value: {{ quote .Values.valhalla.use_tiles_ignore_pbf }}
             - name: TILESET_NAME
-              value: {{ .Values.valhalla.tileset_name }}
+              value: {{ quote .Values.valhalla.tileset_name }}
             - name: BUILD_ELEVATION
-              value: {{ .Values.valhalla.build_elevation }}
+              value: {{ quote .Values.valhalla.build_elevation }}
             - name: BUILD_ADMINS
-              value: {{ .Values.valhalla.build_admins }}
+              value: {{ quote .Values.valhalla.build_admins }}
             - name: BUILD_TIME_ZONES
-              value: {{ .Values.valhalla.build_time_zones }}
+              value: {{ quote .Values.valhalla.build_time_zones }}
             - name: BUILD_TRANSIT
-              value: {{ .Values.valhalla.build_transit }}
+              value: {{ quote .Values.valhalla.build_transit }}
             - name: BUILD_TAR
-              value: {{ .Values.valhalla.build_tar }}
+              value: {{ quote .Values.valhalla.build_tar }}
             - name: FORCE_REBUILD
-              value: {{ .Values.valhalla.force_rebuild }}            
+              value: {{ quote .Values.valhalla.force_rebuild }}            
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
