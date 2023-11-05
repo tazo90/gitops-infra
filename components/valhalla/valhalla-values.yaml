@@ -10,13 +10,16 @@ service:
 #   fsGroup: 59999
 
 # securityContext:
-#   runAsNonRoot: true
-#   runAsUser: 59999
-#   runAsGroup: 59999
+  # runAsNonRoot: true
+  # runAsUser: 59999
+  # runAsGroup: 59999
 
 valhalla:
   # @TODO: why volumes mouted on /custom_files not working?
   # tile_urls: https://download.geofabrik.de/europe/poland/opolskie-latest.osm.pbf
+
+  # path_extension: valhalla
+  
   tile_urls: https://download.geofabrik.de/europe/andorra-latest.osm.pbf
   server_threads: 1             # determines how many threads will be used to run the valhalla server
   # serve_tiles: true            # If True, starts the service. If false, stops after building the graph.
