@@ -6,15 +6,33 @@ service:
   type: NodePort
   port: 8002
 
+# podSecurityContext:
+#   fsGroup: 59999
+
+# securityContext:
+#   runAsNonRoot: true
+#   runAsUser: 59999
+#   runAsGroup: 59999
+
 valhalla:
-  tile_urls: dolnoslaskie-latest.osm.pbf
+  # @TODO: why volumes mouted on /custom_files not working?
+  # tile_urls: https://download.geofabrik.de/europe/poland/opolskie-latest.osm.pbf
+  tile_urls: https://download.geofabrik.de/europe/andorra-latest.osm.pbf
   server_threads: 1             # determines how many threads will be used to run the valhalla server
-  serve_tiles: true             # If True, starts the service. If false, stops after building the graph.
-  use_tiles_ignore_pbf: true    # load existing valhalla_tiles.tar directly
+  # serve_tiles: true            # If True, starts the service. If false, stops after building the graph.
+  use_tiles_ignore_pbf: false   # load existing valhalla_tiles.tar directly
   tileset_name: valhalla_tiles  # name of the resulting graph on disk
   build_elevation: false        # build elevation with "True" or "Force": will download only the elevation for areas covered by the graph tiles
   build_admins: false           # build admins db with "True" or "Force"
   build_time_zones: false       # build timezone db with "True" or "Force"
   build_transit: false          # build transit, needs existing GTFS directories mapped to /gtfs_feeds
-  build_tar: true               # build an indexed tar file from the tile_dir for faster graph loading times
+  # build_tar: true             # build an indexed tar file from the tile_dir for faster graph loading times
   force_rebuild: false          # forces a rebuild of the routing tiles with "True"
+
+  # @Important: serve_tiles and build_tar have to be commented to make valhalla working
+  # Values are not passed to app env and valhalla does not recognize it, why?
+
+storage:
+  volumeName: "nfs"
+  persistentClaimName: "nfs"
+  subPath: "/custom_files"

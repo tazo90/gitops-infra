@@ -34,42 +34,41 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: TILE_URLS
-              value: {{ quote .Values.valhalla.tile_urls }}
-            - name: SERVER_THREADS
-              value: {{ quote .Values.valhalla.server_threads }}
-            - name: SERVE_TILES
-              value: {{ quote .Values.valhalla.serve_tiles }}
-            - name: USE_TILES_IGNORE_PFB
-              value: {{ quote .Values.valhalla.use_tiles_ignore_pbf }}
-            - name: TILESET_NAME
-              value: {{ quote .Values.valhalla.tileset_name }}
-            - name: BUILD_ELEVATION
-              value: {{ quote .Values.valhalla.build_elevation }}
-            - name: BUILD_ADMINS
-              value: {{ quote .Values.valhalla.build_admins }}
-            - name: BUILD_TIME_ZONES
-              value: {{ quote .Values.valhalla.build_time_zones }}
-            - name: BUILD_TRANSIT
-              value: {{ quote .Values.valhalla.build_transit }}
-            - name: BUILD_TAR
-              value: {{ quote .Values.valhalla.build_tar }}
-            - name: FORCE_REBUILD
-              value: {{ quote .Values.valhalla.force_rebuild }}            
+            - name: tile_urls
+              value: {{ .Values.valhalla.tile_urls | quote }}
+            - name: server_threads
+              value: {{ .Values.valhalla.server_threads | quote }}
+            - name: serve_tiles
+              value: {{ .Values.valhalla.serve_tiles | quote }}
+            - name: use_tiles_ignore_pbf
+              value: {{ .Values.valhalla.use_tiles_ignore_pbf | quote }}
+            - name: tileset_name
+              value: {{ .Values.valhalla.tileset_name | quote }}
+            - name: build_elevation
+              value: {{ .Values.valhalla.build_elevation | quote }}
+            - name: build_admins
+              value: {{ .Values.valhalla.build_admins | quote }}
+            - name: build_time_zones
+              value: {{ .Values.valhalla.build_time_zones | quote }}
+            - name: build_transit
+              value: {{ .Values.valhalla.build_transit | quote }}
+            - name: build_tar
+              value: {{ .Values.valhalla.build_tar | quote }}
+            - name: force_rebuild
+              value: {{ .Values.valhalla.force_rebuild | quote }}    
+          volumeMounts:
+            - name: {{ .Values.storage.volumeName }}
+              mountPath: {{ .Values.storage.subPath | quote }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: {{ .Values.storage.volumeName }}
+          persistentVolumeClaim:
+            claimName: "{{ .Values.storage.persistentClaimName }}"
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
