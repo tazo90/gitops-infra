@@ -2,22 +2,18 @@ image:
   # repository: tonsnoei/photon-geocoder  # local image
   repository: tazo90/photon
   pullPolicy: IfNotPresent
-  tag: "1.0.9"
+  tag: "1.0.10"
 
 service:
   port: 2322
 
 storage:
-  create: true
-  # Override the persistentvolumeclaim's name whose default is the release name
-  persistentName: "photon-pv"
-  persistentType: "local"
-  persistentClaimName: "photon-pvc"
-  storageClass: "standard"  # kubectl get storageclass
-  capacity: 2Gi
+  volumeName: "nfs"
+  persistentClaimName: "nfs"
+  subPath: "photon"
 
 photon:
-  data_dir: "/photon/photon_data"
+  # data_dir: "/photon/photon_data"
   entrypoint: |
     # Download elasticsearch index
     # if [ ! -d "/photon/photon_data/elasticsearch" ]; then
@@ -40,12 +36,20 @@ photon:
     # else
     #     echo "Could not start photon, the search index could not be found"
     # fi
+
+    if [ ! -d "photon" ]; then
+      mkdir -p photon
+    fi
+
+    if [ ! -f "photon/photon.jar" ]; then
+      wget -c https://github.com/komoot/photon/releases/download/0.4.3/photon-0.4.3.jar -O photon/photon.jar
+    fi
     
     echo "Import data from nominatim"
-    java -jar photon.jar -nominatim-import -host postgres-postgresql.postgres.svc -port 5432 -database nominatim -user postgres -password secure@pass -languages en
+    java -jar photon/photon.jar -nominatim-import -host postgres-postgresql.postgres.svc -port 5432 -database nominatim -user postgres -password secure@pass -languages en
     
     # Photon connect to external es address
-    # java -jar photon.jar -cluster photon -transport-addresses elasticsearch-photon-hl.elasticsearch.svc:9300 -nominatim-import -host postgres.svc -port 5432 -database nominatim -user postgres -password secure@pass -languages en
+    # java -jar photon/photon.jar -cluster photon -transport-addresses elasticsearch-photon-hl.elasticsearch.svc:9300 -nominatim-import -host postgres.svc -port 5432 -database nominatim -user postgres -password secure@pass -languages en
 
     echo "Start photon"
-    java -jar photon.jar $@
+    java -jar photon/photon.jar $@

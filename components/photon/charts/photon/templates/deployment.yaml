@@ -27,9 +27,9 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           volumeMounts:
-            - name: photon-data
-              mountPath: {{ .Values.photon.data_dir | quote }}
+            - name: {{ .Values.storage.volumeName }}
+              mountPath: {{ .Values.storage.subPath | quote }}   
       volumes:
-      - name: photon-data
-        persistentVolumeClaim:
-          claimName: "{{ .Values.storage.persistentClaimName | default (include "photon.fullname" .) }}"
+        - name: {{ .Values.storage.volumeName }}
+          persistentVolumeClaim:
+            claimName: "{{ .Values.storage.persistentClaimName }}"
