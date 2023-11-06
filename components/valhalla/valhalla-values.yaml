@@ -6,23 +6,14 @@ service:
   type: NodePort
   port: 8002
 
-# podSecurityContext:
-#   fsGroup: 59999
-
-# securityContext:
-  # runAsNonRoot: true
-  # runAsUser: 59999
-  # runAsGroup: 59999
-
 valhalla:
   # @TODO: why volumes mouted on /custom_files not working?
   # tile_urls: https://download.geofabrik.de/europe/poland/opolskie-latest.osm.pbf
 
-  # path_extension: valhalla
-  
+  path_extension: valhalla     # target path
   tile_urls: https://download.geofabrik.de/europe/andorra-latest.osm.pbf
   server_threads: 1             # determines how many threads will be used to run the valhalla server
-  # serve_tiles: true            # If True, starts the service. If false, stops after building the graph.
+  # serve_tiles: true           # If True, starts the service. If false, stops after building the graph.
   use_tiles_ignore_pbf: false   # load existing valhalla_tiles.tar directly
   tileset_name: valhalla_tiles  # name of the resulting graph on disk
   build_elevation: false        # build elevation with "True" or "Force": will download only the elevation for areas covered by the graph tiles

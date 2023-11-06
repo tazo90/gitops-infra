@@ -12,6 +12,13 @@ spec:
       labels:
         role: nfs-server
     spec:
+      initContainers:
+        - name: allow-to-write-by-non-roots
+          image: busybox
+          command: ["sh", "-c", "chmod o+w /exports"]
+          volumeMounts:
+          - name: nfs-pvc
+            mountPath: /exports
       containers:
         - name: nfs-server
           image: k8s.gcr.io/volume-nfs:0.8
@@ -25,8 +32,8 @@ spec:
           securityContext:
             privileged: true
           volumeMounts:
-            - mountPath: /exports
-              name: nfs-pvc
+            - name: nfs-pvc
+              mountPath: /exports
       volumes:
         - name: nfs-pvc
           persistentVolumeClaim:
