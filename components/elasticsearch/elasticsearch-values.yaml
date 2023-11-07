@@ -1,6 +1,10 @@
-# clusterName: "photon"
+clusterName: "elastic"
+
+image:
+  tag: 7.17.14-debian-11-r0
 
 master:
+  masterOnly: false
   replicaCount: 1
   # nameOverride: "photon"
 
@@ -12,3 +16,6 @@ coordinating:
 
 ingest:
   enabled: false
+
+service:
+  type: NodePort
