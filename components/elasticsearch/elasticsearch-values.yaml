@@ -8,6 +8,20 @@ image:
 master:
   masterOnly: false
   replicaCount: 1
+
+  persistence: 
+    enabled: false
+
+  extraVolumes:
+    - name: nfs
+      persistentVolumeClaim:
+        claimName: nfs
+
+  extraVolumeMounts:
+    - name: nfs
+      # mountPath: /exports/elasticsearch/data
+      mountPath: /elasticsearch
+
   # Force run as root
   # containerSecurityContext:
   #   runAsUser: 0
@@ -26,33 +40,39 @@ ingest:
 service:
   type: NodePort
 
-initContainers:
-- name: install
-  image: alpine:latest
-  command: 
-    - sh
-    - -c
-    - |
-      echo "Download elasticsearch indexes..."
-      apk --no-cache add curl tar
-      curl -L https://download1.graphhopper.com/public/extracts/by-country-code/ad/photon-db-ad-latest.tar.bz2 | tar -xj --strip-components=2 -C /bitnami/elasticsearch/
-      # wget --user-agent="docker: tonsnoei/photon-geocoder" -O - https://download1.graphhopper.com/public/extracts/by-country-code/ad/photon-db-ad-latest.tar.bz2 | bzip2 -cd > /workdir/photon-db-ad-latest.tar
-  volumeMounts:
-    - name: shared-volume
-      mountPath: "/bitnami/elasticsearch"
+# initContainers:
+# - name: install
+#   image: alpine:latest
+#   command: 
+#     - sh
+#     - -c
+#     - |
+#       echo "Download elasticsearch indexes..."
+#       apk --no-cache add curl tar
+#       curl -L https://download1.graphhopper.com/public/extracts/by-country-code/ad/photon-db-ad-latest.tar.bz2 | tar -xj --strip-components=2 -C /bitnami/elasticsearch/
+#       # wget --user-agent="docker: tonsnoei/photon-geocoder" -O - https://download1.graphhopper.com/public/extracts/by-country-code/ad/photon-db-ad-latest.tar.bz2 | bzip2 -cd > /workdir/photon-db-ad-latest.tar
+#   volumeMounts:
+#     - name: shared-volume
+#       mountPath: "/bitnami/elasticsearch"
 
-# persistence:
-#   enabled: false
-  # existingClaim: nfs
-  # existingVolume: nfs
+persistence:
+  enabled: false
 
-extraVolumes:
-  - name: shared-volume
-    emptyDir: {}
+# extraEnvs:
+#   - name: path.data
+#     value: /exports/elasticsearch/data
 
-extraVolumeMounts:
-  - name: shared-volume
-    mountPath: /bitnami/elasticsearch
+esConfig:
+  elasticsearch.yml: |
+    path.data: /exports/elasticsearch/data
+
+# extraVolumes:
+#   - name: nfs
+
+# extraVolumeMounts:
+#   - name: nfs
+#     mountPath: /exports/elasticsearch/data
+
 
 volumePermissions:
   enabled: true
