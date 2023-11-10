@@ -1,11 +1,17 @@
 clusterName: "elastic"
 
 image:
-  tag: 7.17.14-debian-11-r0
+  #tag: 7.17.14-debian-11-r0
+  # @important: on ES 6 and older has been changed indexes. Use v5 to keep compatibility.
+  tag: 5.6.16
 
 master:
   masterOnly: false
   replicaCount: 1
+  # Force run as root
+  # containerSecurityContext:
+  #   runAsUser: 0
+  #   runAsNonRoot: false
   # nameOverride: "photon"
 
 data:
@@ -19,3 +25,45 @@ ingest:
 
 service:
   type: NodePort
+
+initContainers:
+- name: install
+  image: alpine:latest
+  command: 
+    - sh
+    - -c
+    - |
+      echo "Download elasticsearch indexes..."
+      apk --no-cache add curl tar
+      curl -L https://download1.graphhopper.com/public/extracts/by-country-code/ad/photon-db-ad-latest.tar.bz2 | tar -xj --strip-components=2 -C /bitnami/elasticsearch/
+      # wget --user-agent="docker: tonsnoei/photon-geocoder" -O - https://download1.graphhopper.com/public/extracts/by-country-code/ad/photon-db-ad-latest.tar.bz2 | bzip2 -cd > /workdir/photon-db-ad-latest.tar
+  volumeMounts:
+    - name: shared-volume
+      mountPath: "/bitnami/elasticsearch"
+
+# persistence:
+#   enabled: false
+  # existingClaim: nfs
+  # existingVolume: nfs
+
+extraVolumes:
+  - name: shared-volume
+    emptyDir: {}
+
+extraVolumeMounts:
+  - name: shared-volume
+    mountPath: /bitnami/elasticsearch
+
+volumePermissions:
+  enabled: true
+
+
+# persistence:
+#   enabled: false
+
+# extraVolumes:
+#   - name: nfs
+
+# extraVolumeMounts:
+#   - name: nfs
+#     mountPath: /elasticsearch

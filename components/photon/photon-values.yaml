@@ -46,10 +46,10 @@ photon:
     fi
     
     echo "Import data from nominatim"
-    java -jar photon/photon.jar -nominatim-import -host postgres-postgresql.postgres.svc -port 5432 -database nominatim -user postgres -password secure@pass -languages en
+    # java -jar photon/photon.jar -nominatim-import -host postgres-postgresql.postgres.svc -port 5432 -database nominatim -user postgres -password secure@pass -languages en
     
     # Photon connect to external es address
-    # java -jar photon/photon.jar -cluster photon -transport-addresses elasticsearch-photon-hl.elasticsearch.svc:9300 -nominatim-import -host postgres.svc -port 5432 -database nominatim -user postgres -password secure@pass -languages en
+    java -jar photon/photon.jar -cluster photon -transport-addresses curl elasticsearch-master-hl.elasticsearch.svc:9300 -nominatim-import -host postgres.svc -port 5432 -database nominatim -user postgres -password secure@pass -languages en
 
     echo "Start photon"
     java -jar photon/photon.jar $@
