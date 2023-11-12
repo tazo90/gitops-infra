@@ -19,7 +19,7 @@ curl -X GET "http://localhost:9200/_cat/indices?v"
 curl -X GET 'http://localhost:9200/_cat/indices/%2A?v=&s=index:desc'
 
 - get index
-curl -XGET http://localhost:9200/_cat/indices/photon-2023-11-10?v=true&s=index
+curl -XGET http://localhost:9200/_cat/indices/photon_2023-11-10?v=true&s=index
 
 - get shards
 curl -XGET localhost:9200/_cat/shards?v
