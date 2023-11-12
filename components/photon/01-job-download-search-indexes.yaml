@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: photon-job-download-search-indexes
+spec:
+  template:
+    spec:
+      containers:
+      - name: photon-index
+        image: alpine:latest
+        securityContext:
+          runAsUser: 0
+          runAsNonRoot: false
+        command:
+          - sh
+          - -c
+          - |
+            echo "Download elasticsearch indexes..."
+            apk --no-cache add curl tar
+            curl -L https://download1.graphhopper.com/public/extracts/by-country-code/ad/photon-db-ad-latest.tar.bz2 | tar -xj --strip-components=1 -C elasticsearch/
+            echo "Done"
+        volumeMounts:
+        - name: nfs
+          mountPath: /elasticsearch
+      restartPolicy: Never
+      volumes:
+      - name: nfs
+        persistentVolumeClaim:
+          claimName: nfs
