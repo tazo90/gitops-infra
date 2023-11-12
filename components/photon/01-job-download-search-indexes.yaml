@@ -17,7 +17,14 @@ spec:
           - |
             echo "Download elasticsearch indexes..."
             apk --no-cache add curl tar
+            
+            # Download ES indexes
             curl -L https://download1.graphhopper.com/public/extracts/by-country-code/ad/photon-db-ad-latest.tar.bz2 | tar -xj --strip-components=1 -C elasticsearch/
+            
+            # Set permissions
+            chown -R 1000:1000 ./elasticsearch
+            chmod -R 777 ./elasticsearch
+
             echo "Done"
         volumeMounts:
         - name: nfs
