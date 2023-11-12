@@ -8,6 +8,10 @@ image:
 master:
   masterOnly: false
   replicaCount: 1
+  livenessProbe:
+    enabled: false
+  readinessProbe:
+    enabled: false
 
   persistence: 
     enabled: false
@@ -19,8 +23,11 @@ master:
 
   extraVolumeMounts:
     - name: nfs
-      # mountPath: /exports/elasticsearch/data
-      mountPath: /elasticsearch
+      mountPath: /bitnami/
+
+  extraEnvVars:
+    - name: path.data
+      value: "/bitnami/elasticsearch/"
 
   # Force run as root
   # containerSecurityContext:
@@ -40,50 +47,6 @@ ingest:
 service:
   type: NodePort
 
-# initContainers:
-# - name: install
-#   image: alpine:latest
-#   command: 
-#     - sh
-#     - -c
-#     - |
-#       echo "Download elasticsearch indexes..."
-#       apk --no-cache add curl tar
-#       curl -L https://download1.graphhopper.com/public/extracts/by-country-code/ad/photon-db-ad-latest.tar.bz2 | tar -xj --strip-components=2 -C /bitnami/elasticsearch/
-#       # wget --user-agent="docker: tonsnoei/photon-geocoder" -O - https://download1.graphhopper.com/public/extracts/by-country-code/ad/photon-db-ad-latest.tar.bz2 | bzip2 -cd > /workdir/photon-db-ad-latest.tar
-#   volumeMounts:
-#     - name: shared-volume
-#       mountPath: "/bitnami/elasticsearch"
-
-persistence:
-  enabled: false
-
-# extraEnvs:
-#   - name: path.data
-#     value: /exports/elasticsearch/data
-
-esConfig:
-  elasticsearch.yml: |
-    path.data: /exports/elasticsearch/data
-
-# extraVolumes:
-#   - name: nfs
-
-# extraVolumeMounts:
-#   - name: nfs
-#     mountPath: /exports/elasticsearch/data
-
 
 volumePermissions:
   enabled: true
-
-
-# persistence:
-#   enabled: false
-
-# extraVolumes:
-#   - name: nfs
-
-# extraVolumeMounts:
-#   - name: nfs
-#     mountPath: /elasticsearch
