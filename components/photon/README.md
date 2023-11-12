@@ -1,3 +1,8 @@
+## Import data
+
+Photon support only single ES indexes import file, i.e. specific country/subcountry/continent.
+If you want any custom data you need to reindex them from nominatim.
+
 ## 1. Commands
 
 kubectl kustomize --enable-helm components/photon | kubectl apply --filename -

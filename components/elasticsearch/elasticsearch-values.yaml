@@ -47,6 +47,10 @@ ingest:
 service:
   type: NodePort
 
-
 volumePermissions:
   enabled: true
+
+# esConfig:
+#   elasticsearch.yml: |
+#     path.data: /elasticsearch/data
+#     bootstrap.memory_lock: false
