@@ -6,7 +6,7 @@ resources:
   # ../components/nginx-ingress
   # ../componebts/sentry
   - ../components/nfs-server
-  - ../components/argocd
+  # - ../components/argocd
   - ../components/postgres
   - ../components/redis
   - ../components/elasticsearch
