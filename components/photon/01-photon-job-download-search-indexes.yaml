@@ -2,6 +2,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: photon-job-download-search-indexes
+  # @Important: to make it working it must be the same namespace as nfs-server
+  namespace: shared
 spec:
   template:
     spec:
