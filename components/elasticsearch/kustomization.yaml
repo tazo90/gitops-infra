@@ -1,7 +1,5 @@
 kind: Kustomization
-
-# resources:
-#   - namespace.yaml
+namespace: shared
 
 helmGlobals:
   chartHome: ./charts
@@ -11,5 +9,5 @@ helmCharts:
     version: 19.11.3
     repo: https://charts.bitnami.com/bitnami
     releaseName: elasticsearch
-    # namespace: elasticsearch
+    namespace: shared
     valuesFile: elasticsearch-values.yaml

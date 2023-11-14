@@ -15,7 +15,12 @@ spec:
       initContainers:
         - name: allow-to-write-by-non-roots
           image: busybox
-          command: ["sh", "-c", "chmod o+w /exports"]
+          command:
+            - sh
+            - -c
+            - |
+              chown -R 1000:1000 /exports
+              chmod -R 777 /exports
           volumeMounts:
           - name: nfs-pvc
             mountPath: /exports
