@@ -3,6 +3,12 @@
 Photon support only single ES indexes import file, i.e. specific country/subcountry/continent.
 If you want any custom data you need to reindex them from nominatim.
 
+How it works:
+- download photon elasticsearch indexes
+  k apply -f 01-photon-job-download-search-indexes.yaml
+- indices are now available on nfs-server in /exports/elasticsearch/data
+- restart elasticsearch (scale statefulset to 0 after that scale to 1)
+
 ## 1. Commands
 
 kubectl kustomize --enable-helm components/photon | kubectl apply --filename -

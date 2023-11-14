@@ -1,8 +1,8 @@
 ## Install elasticsearch
 kubectl kustomize --enable-helm components/elasticsearch | kubectl apply --filename -
 
-kubectl port-forward svc/elasticsearch 9200:9200
-kubectl port-forward svc/elasticsearch 9300:9300
+kubectl port-forward svc/elasticsearch -n shared 9200:9200
+kubectl port-forward svc/elasticsearch -n shared 9300:9300
 
 ## Test elasticsearch connection
 curl elasticsearch-master-hl.elasticsearch.svc:9200
