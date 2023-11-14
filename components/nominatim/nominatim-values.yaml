@@ -3,7 +3,7 @@ image:
   tag: "4.2"
 
 nominatimInitialize:
-  # @Important: first set up should have enabled initialize
+  # @Important: first running should have enabled initialize (enabled=true)
   enabled: false
   pbfUrl: https://download.geofabrik.de/europe/poland/opolskie-latest.osm.pbf
 
@@ -24,7 +24,7 @@ postgresql:
   #     full_page_writes = off
 
 externalDatabase:
-  host: postgres-postgresql.postgres.svc
+  host: postgres-postgresql.shared.svc
   port: 5432
   user: nominatim
   password: nominatim
