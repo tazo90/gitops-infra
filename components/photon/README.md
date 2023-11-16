@@ -74,3 +74,5 @@ java -jar photon.jar \
 # External elasticsearch and postgres 
 java -jar photon.jar -cluster photon -transport-addresses elasticsearch.elasticsearch.svc:9200 -nominatim-import -host postgres.svc -port 5432 -database nominatim -user postgres -password secure@pass -languages en
 
+java -jar photon.jar -cluster elastic -transport-addresses 127.0.0.1:9300 -nominatim-import -host 127.0.0.1 -port 5432 -database nominatim -user postgres -password secure@pass -languages en
+

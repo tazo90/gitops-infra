@@ -2,7 +2,7 @@ image:
   # repository: tonsnoei/photon-geocoder  # local image
   repository: tazo90/photon
   pullPolicy: IfNotPresent
-  tag: "1.0.10"
+  tag: "1.0.14"
 
 service:
   port: 2322
@@ -15,41 +15,6 @@ storage:
 photon:
   # data_dir: "/photon/photon_data"
   entrypoint: |
-    # Download elasticsearch index
-    # if [ ! -d "/photon/photon_data/elasticsearch" ]; then
-    #     echo "Downloading search index"
+    # Run with external elasticsearch
+    java -jar photon.jar -cluster elastic -transport-addresses elasticsearch-master-hl.shared.svc:9300 -languages en
 
-    #     # Let graphhopper know where the traffic is coming from
-    #     USER_AGENT="docker: tonsnoei/photon-geocoder"
-    #     # If you want to install a specific region only, enable the line below and disable the current 'wget' row.
-    #     # Take a look at http://download1.graphhopper.com/public/extracts/by-country-code for your country
-    #     # wget --user-agent="$USER_AGENT" -O - http://download1.graphhopper.com/public/extracts/by-country-code/nl/photon-db-nl-latest.tar.bz2 | bzip2 -cd | tar x
-    #     # wget --user-agent="$USER_AGENT" -O - http://download1.graphhopper.com/public/photon-db-latest.tar.bz2 | bzip2 -cd | tar x
-    #     # wget --user-agent="$USER_AGENT" -O - https://download1.graphhopper.com/public/extracts/by-country-code/pl/photon-db-pl-latest.tar.bz2 | bzip2 -cd | tar x
-    #     wget --user-agent="$USER_AGENT" -O - https://download1.graphhopper.com/public/extracts/by-country-code/ad/photon-db-ad-latest.tar.bz2 | bzip2 -cd | tar x
-    # fi
-
-    # Start photon if elastic index exists
-    # if [ -d "/photon/photon_data/elasticsearch" ]; then
-    #     echo "Start photon"
-    #     java -jar photon.jar $@
-    # else
-    #     echo "Could not start photon, the search index could not be found"
-    # fi
-
-    if [ ! -d "photon" ]; then
-      mkdir -p photon
-    fi
-
-    if [ ! -f "photon/photon.jar" ]; then
-      wget -c https://github.com/komoot/photon/releases/download/0.4.3/photon-0.4.3.jar -O photon/photon.jar
-    fi
-    
-    echo "Import data from nominatim"
-    # java -jar photon/photon.jar -nominatim-import -host postgres-postgresql.postgres.svc -port 5432 -database nominatim -user postgres -password secure@pass -languages en
-    
-    # Photon connect to external es address
-    java -jar photon/photon.jar -cluster photon -transport-addresses curl elasticsearch-master-hl.elasticsearch.svc:9300 -nominatim-import -host postgres.svc -port 5432 -database nominatim -user postgres -password secure@pass -languages en
-
-    echo "Start photon"
-    java -jar photon/photon.jar $@

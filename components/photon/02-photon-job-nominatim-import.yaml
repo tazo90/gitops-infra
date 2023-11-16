@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: photon-job-nominatim-import
+  # @Important: to make it working it must be the same namespace as nfs-server
+  namespace: shared
+spec:
+  template:
+    spec:
+      containers:
+      - name: photon-index
+        image: tazo90/photon:1.0.14
+        securityContext:
+          runAsUser: 0
+          runAsNonRoot: false
+        command:
+          - sh
+          - -c
+          - |
+            echo "Import data from nominatim..."
+
+            java -jar photon.jar -cluster elastic -transport-addresses elasticsearch-master-hl.shared.svc:9300 -nominatim-import -host  postgres-postgresql.shared.svc -port 5432 -database nominatim -user postgres -password secure@pass -languages en
+
+            echo "Done"
+        volumeMounts:
+        - name: nfs
+          mountPath: /photon
+      restartPolicy: Never
+      volumes:
+      - name: nfs
+        persistentVolumeClaim:
+          claimName: nfs
