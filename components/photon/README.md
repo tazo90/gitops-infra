@@ -6,6 +6,10 @@ If you want any custom data you need to reindex them from nominatim.
 How it works:
 - download photon elasticsearch indexes
   k apply -f 01-photon-job-download-search-indexes.yaml
+
+- download photon data from nominatim
+  k apply -f 02-photon-job-nominatim-import.yaml
+
 - indices are now available on nfs-server in /exports/elasticsearch/data
 - restart elasticsearch (scale statefulset to 0 after that scale to 1)
 
@@ -13,7 +17,7 @@ How it works:
 
 kubectl kustomize --enable-helm components/photon | kubectl apply --filename -
 
-kubectl port-forward svc/photon -n photon 2322:2322
+kubectl port-forward svc/photon 2322:2322
 
 curl http://localhost:2322/api?q=opole
 
